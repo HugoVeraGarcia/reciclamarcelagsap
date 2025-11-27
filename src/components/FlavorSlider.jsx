@@ -14,66 +14,59 @@ const FlavorSlider = () => {
   useGSAP(() => {
     // Creamos un contexto de MatchMedia
     let mm = gsap.matchMedia();
+    
+    const scrollAmount = sliderRef.current.scrollWidth - window.innerWidth;
 
-    // ------------------------------------------------
-    // 1. LÓGICA SOLO PARA ESCRITORIO (min-width: 1024px)
-    // ------------------------------------------------
-    mm.add("(min-width: 1024px)", () => {
-      const scrollAmount = sliderRef.current.scrollWidth - window.innerWidth;
-
+    
+    if (!isTablet) {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: ".flavor-section",
           start: "2% top",
-          end: `+=${scrollAmount + 1000}px`, // Ajusté un poco el valor
+          end: `+=${scrollAmount + 1500}px`,
           scrub: true,
           pin: true,
-          // markers: true, // Descomenta si necesitas depurar
         },
       });
 
       tl.to(".flavor-section", {
-        x: `-${scrollAmount + 1000}px`,
-        ease: "none", // Importante: "none" para que el scroll se sienta natural
+        x: `-${scrollAmount + 1500}px`,
+        ease: "power1.inOut",
       });
+    }
 
-      // Animaciones de texto (Solo en escritorio)
-      const titleTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: ".flavor-section",
-          start: "top top",
-          end: "bottom 80%",
-          scrub: true,
+    const titleTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".flavor-section",
+        start: "top top",
+        end: "bottom 80%",
+        scrub: true,
+      },
+    });
+
+    titleTl
+      .to(".first-text-split", {
+        xPercent: -30,
+        ease: "power1.inOut",
+      })
+      .to(
+        ".flavor-text-scroll",
+        {
+          xPercent: -22,
+          ease: "power1.inOut",
         },
-      });
-
-      titleTl
-        .to(".first-text-split", { xPercent: -30, ease: "power1.inOut" })
-        .to(".flavor-text-scroll", { xPercent: -22, ease: "power1.inOut" }, "<")
-        .to(".second-text-split", { xPercent: -10, ease: "power1.inOut" }, "<");
-    });
-
-    // ------------------------------------------------
-    // 2. LÓGICA PARA MÓVIL/TABLET (Opcional)
-    // ------------------------------------------------
-    mm.add("(max-width: 1023px)", () => {
-      // Aquí puedes poner animaciones simples para móvil si quieres
-      // Por ejemplo, que aparezcan con fade-in al hacer scroll
-      /*
-      gsap.from(".slider-wrapper img", {
-        opacity: 0,
-        y: 50,
-        stagger: 0.1,
-        scrollTrigger: {
-           trigger: ".flavors",
-           start: "top 80%"
-        }
-      });
-      */
-    });
-
-  }, { scope: sliderRef }); // Scope para mejor limpieza
-
+        "<"  //same time
+      )
+      .to(
+        ".second-text-split",
+        {
+          xPercent: -10,
+          ease: "power1.inOut",
+        },
+        "<" //same time
+      );
+  });
+ñ
   return (
     <div ref={sliderRef} className="slider-wrapper">
       <div className="flavors mt-20 lg:mt-20">
