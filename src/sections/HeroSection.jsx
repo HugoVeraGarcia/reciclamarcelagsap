@@ -74,7 +74,8 @@ const HeroSection = () => {
             poster="/images/hero-bg.jpg"  // <--- AGREGAR ESTO
             autoPlay
             muted
-            playsInline
+            playsInline={true}
+            controls={false}
             className="absolute inset-0 w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-white-950/100 mix-blend-multiply z-0"></div>
