@@ -69,7 +69,7 @@ const FlavorSlider = () => {
       <div className="flavors mt-20 lg:mt-20">
         {flavorlists.map((flavor) => (
           <div
-            key={flavor.name}
+            key={flavor.number}
             className={`relative z-30 lg:w-[35vw] w-64 lg:h-[50vh] md:w-[63vw] md:h-[35vh] h-56 flex-none ${flavor.rotation}`}
           >
             <img
@@ -78,19 +78,8 @@ const FlavorSlider = () => {
               className="absolute bottom-0"
             />
 
-            {/* <img
-              src={`/images/${flavor.color}-drink.webp`}
-              alt=""
-              className="drinks"
-            /> */}
-
-            {/* <img
-              src={`/images/${flavor.color}-elements.webp`}
-              alt=""
-              className="elements"
-            /> */}
-
-            <h1>{flavor.name}</h1>
+            
+            <h1>{flavor.number}</h1>
           </div>
         ))}
       </div>
